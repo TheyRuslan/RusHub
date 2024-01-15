@@ -49,15 +49,15 @@ while _G.ruslan do
 
     -- Torso probabilities
     if randNumTorso <= 20 then
-        xdTorso = 5
+        xdTorso = 6
     elseif randNumTorso <= 50 then
-        xdTorso = 5.4
+        xdTorso = 7.4
     elseif randNumTorso <= 70 then
-        xdTorso = 6
+        xdTorso = 8
     elseif randNumTorso <= 88 then
-        xdTorso = 7
+        xdTorso = 9
     else
-        xdTorso = 6
+        xdTorso = 9.4
     end
 
     local HitboxExpanderHead = { HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead }
