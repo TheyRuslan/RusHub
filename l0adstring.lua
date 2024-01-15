@@ -36,15 +36,15 @@ while _G.ruslan do
 
     -- Head probabilities
     if randNumHead <= 50 then
-        xdHead = 3.5
+        xdHead = 4.5
     elseif randNumHead <= 80 then
-        xdHead = 4.3
+        xdHead = 5.3
     elseif randNumHead <= 90 then
-        xdHead = 5
-    elseif randNumHead <= 95 then
-        xdHead = 5.5
-    else
         xdHead = 6
+    elseif randNumHead <= 95 then
+        xdHead = 7.5
+    else
+        xdHead = 7.8
     end
 
     -- Torso probabilities
