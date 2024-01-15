@@ -85,3 +85,4 @@ while _G.ruslan do
 
     wait(0.65)
 end
+print("yo")
