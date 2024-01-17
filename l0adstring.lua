@@ -159,13 +159,14 @@ while _G.ruslan do
                 i.Head.CanCollide = false
                 i.Head.Color = Color3.fromRGB(144, 66, 245)
                 i.Head.Material = "ForceField"
-                i.Head.Transparency = 
+                i.Head.Transparency = 1
             end
             if i:FindFirstChild("Torso") then
                 i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
                 i.Torso.CanCollide = false
                 i.Torso.Color = Color3.fromRGB(66, 144, 245)
                 i.Torso.Material = "ForceField"
+                i.Torso.Transparency = 0.8
             end
         end
     end
