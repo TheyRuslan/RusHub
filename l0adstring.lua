@@ -126,15 +126,15 @@ while _G.ruslan do
     local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        xdHead = 4.7
+        xdHead = 4.4
     elseif randNumHead <= 80 then
-        xdHead = 5.8
+        xdHead = 5.2
     elseif randNumHead <= 90 then
-        xdHead = 6
+        xdHead = 5.9
     elseif randNumHead <= 95 then
-        xdHead = 6.8
+        xdHead = 6.4
     else
-        xdHead = 6
+        xdHead = 6.5
     end
 
     if randNumTorso <= 20 then
