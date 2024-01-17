@@ -126,25 +126,25 @@ while _G.ruslan do
     local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        xdHead = 3.8
+        xdHead = 4.7
     elseif randNumHead <= 80 then
-        xdHead = 4.5
+        xdHead = 5.8
     elseif randNumHead <= 90 then
-        xdHead = 5.2
+        xdHead = 6
     elseif randNumHead <= 95 then
-        xdHead = 5.7
+        xdHead = 6.8
     else
         xdHead = 6
     end
 
     if randNumTorso <= 20 then
-        xdTorso = 4.7
+        xdTorso = 5.3
     elseif randNumTorso <= 50 then
-        xdTorso = 5.2
-    elseif randNumTorso <= 70 then
         xdTorso = 5.8
-    elseif randNumTorso <= 88 then
+    elseif randNumTorso <= 70 then
         xdTorso = 6
+    elseif randNumTorso <= 88 then
+        xdTorso = 6.5
     else
         xdTorso = 7
     end
@@ -159,14 +159,14 @@ while _G.ruslan do
                 i.Head.CanCollide = false
                 i.Head.Color = Color3.fromRGB(144, 66, 245)
                 i.Head.Material = "ForceField"
-                i.Head.Transparency = 1
+                i.Head.Transparency = 0.9
             end
             if i:FindFirstChild("Torso") then
                 i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
                 i.Torso.CanCollide = false
                 i.Torso.Color = Color3.fromRGB(66, 144, 245)
                 i.Torso.Material = "ForceField"
-                i.Torso.Transparency = 0.8
+                i.Torso.Transparency = 0.4
             end
         end
     end
@@ -174,5 +174,5 @@ while _G.ruslan do
     game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
     game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
 
-    wait(math.random() * 0.4 + 0.4)
+    wait(0.5)
 end
