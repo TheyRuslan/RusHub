@@ -1,7 +1,7 @@
 wait(1)
 local Camera = game:GetService("Workspace").CurrentCamera
 local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
---[[
+
 
 local originalTerrainDecoration = gethiddenproperty(game.Workspace.Terrain, "Decoration")
 local originalGlobalShadows = gethiddenproperty(game:GetService("Lighting"), "GlobalShadows")
@@ -10,7 +10,7 @@ local originalGlobalShadows = gethiddenproperty(game:GetService("Lighting"), "Gl
 local terrainHook = hookmetamethod(game, "__newindex", newcclosure(function(...)
     local self, k, v = ...
     if not checkcaller() and self == game.Workspace.Terrain and k == "Decoration" then
-        return false
+        return true
     end
     return terrainHook(...)
 end))
@@ -19,30 +19,9 @@ end))
 local shadowsHook = hookmetamethod(game, "__newindex", newcclosure(function(...)
     local self, k, v = ...
     if not checkcaller() and self == game:GetService("Lighting") and k == "GlobalShadows" then
-        return false
+        return true
     end
     return shadowsHook(...)
-end))
-
-local originalEqualizerSoundEffect = game:GetService("SoundService").PlayerHitHeadshot.EqualizerSoundEffect
-local originalSoundId = game:GetService("SoundService").PlayerHitHeadshot.SoundId
-
--- Hook para modificar el sonido EqualizerSoundEffect
-local soundHook = hookmetamethod(game, "__newindex", newcclosure(function(...)
-    local self, k, v = ...
-    if not checkcaller() and self == originalEqualizerSoundEffect and k == "HighGain" then
-        return -1.5
-    end
-    return soundHook(...)
-end))
-
--- Hook para modificar el SoundId
-local soundIdHook = hookmetamethod(game, "__newindex", newcclosure(function(...)
-    local self, k, v = ...
-    if not checkcaller() and self == originalSoundId and k == "SoundId" then
-        return "rbxassetid://8726881116"
-    end
-    return soundIdHook(...)
 end))
 
 local antihideprop
@@ -93,11 +72,13 @@ local hookBrightness = hookmetamethod(game, "__newindex", newcclosure(function(.
     return hookBrightness(...)
 end))
 
-game:GetService("SoundService").PlayerHitHeadshot.EqualizerSoundEffect.HighGain = -1.5
-game:GetService("SoundService").PlayerHitHeadshot.SoundId = "rbxassetid://8726881116"
+
 
 sethiddenproperty(game.Workspace.Terrain, "Decoration", false)
 sethiddenproperty(game:GetService("Lighting"), "GlobalShadows", false)
+--[[
+game:GetService("SoundService").PlayerHitHeadshot.EqualizerSoundEffect.HighGain = -1.5
+game:GetService("SoundService").PlayerHitHeadshot.SoundId = "rbxassetid://8726881116"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Dustin21335/Full-bright/main/fullbright.lua"))()
 ]]
 local antihitbox
@@ -126,27 +107,27 @@ while _G.ruslan do
     local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        xdHead = 4.4
+        xdHead = 4.5
     elseif randNumHead <= 80 then
-        xdHead = 5.2
+        xdHead = 5.4
     elseif randNumHead <= 90 then
-        xdHead = 5.9
+        xdHead = 6
     elseif randNumHead <= 95 then
-        xdHead = 6.4
-    else
         xdHead = 6.5
+    else
+        xdHead = 6.6
     end
 
     if randNumTorso <= 20 then
-        xdTorso = 5.3
+        xdTorso = 5.4
     elseif randNumTorso <= 50 then
-        xdTorso = 5.8
+        xdTorso = 5.9
     elseif randNumTorso <= 70 then
-        xdTorso = 6
+        xdTorso = 6.1
     elseif randNumTorso <= 88 then
-        xdTorso = 6.5
+        xdTorso = 6.6
     else
-        xdTorso = 7
+        xdTorso = 7.1
     end
 
     local HitboxExpanderHead = { HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead }
