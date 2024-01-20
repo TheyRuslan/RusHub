@@ -2,6 +2,10 @@ wait(1)
 local Camera = game:GetService("Workspace").CurrentCamera
 local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
 
+
+
+
+--[[
 local originalTerrainDecoration = gethiddenproperty(game.Workspace.Terrain, "Decoration")
 local originalGlobalShadows = gethiddenproperty(game:GetService("Lighting"), "GlobalShadows")
 
@@ -25,8 +29,6 @@ end))
 
 sethiddenproperty(game.Workspace.Terrain, "Decoration", false)
 sethiddenproperty(game:GetService("Lighting"), "GlobalShadows", false)
-
---[[
 local antiSoundChanges
 
 antiSoundChanges = hookmetamethod(game:GetService("SoundService").PlayerHitHeadshot, "__newindex", newcclosure(function(...)
