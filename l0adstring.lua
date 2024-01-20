@@ -2,7 +2,6 @@ wait(1)
 local Camera = game:GetService("Workspace").CurrentCamera
 local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
 
-
 local originalTerrainDecoration = gethiddenproperty(game.Workspace.Terrain, "Decoration")
 local originalGlobalShadows = gethiddenproperty(game:GetService("Lighting"), "GlobalShadows")
 
@@ -24,29 +23,10 @@ local shadowsHook = hookmetamethod(game, "__newindex", newcclosure(function(...)
     return shadowsHook(...)
 end))
 
-local antihideprop
+sethiddenproperty(game.Workspace.Terrain, "Decoration", false)
+sethiddenproperty(game:GetService("Lighting"), "GlobalShadows", false)
 
-antihideprop = hookmetamethod(game.Workspace.Terrain, "__newindex", newcclosure(function(...)
-    local self, k, v = ...
-    if not checkcaller() and k == "Decoration" then
-        print("Modificación bloqueada. Manteniendo el valor en true.")
-        return true  -- Mantén el valor como true
-    end
-    return antihideprop(...)
-end))
-
-
-local antihideshadows
-
-antihideshadows = hookmetamethod(game:GetService("Lighting"), "__newindex", newcclosure(function(...)
-    local self, k, v = ...
-    if not checkcaller() and k == "GlobalShadows" then
-        print("Modificación bloqueada. Manteniendo el valor en true.")
-        return true  -- Mantén el valor como true
-    end
-    return antihideshadows(...)
-end))
-
+--[[
 local antiSoundChanges
 
 antiSoundChanges = hookmetamethod(game:GetService("SoundService").PlayerHitHeadshot, "__newindex", newcclosure(function(...)
@@ -71,15 +51,10 @@ local hookBrightness = hookmetamethod(game, "__newindex", newcclosure(function(.
     end
     return hookBrightness(...)
 end))
-
-
-
-sethiddenproperty(game.Workspace.Terrain, "Decoration", false)
-sethiddenproperty(game:GetService("Lighting"), "GlobalShadows", false)
---[[
 game:GetService("SoundService").PlayerHitHeadshot.EqualizerSoundEffect.HighGain = -1.5
 game:GetService("SoundService").PlayerHitHeadshot.SoundId = "rbxassetid://8726881116"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Dustin21335/Full-bright/main/fullbright.lua"))()
+
 ]]
 local antihitbox
 antihitbox = hookmetamethod(game, "__newindex", newcclosure(function(...)
