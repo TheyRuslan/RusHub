@@ -77,7 +77,16 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
 end))
 
 _G.ruslan = true
+    local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
+    local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
 
+
+    wait(1)
+    
+    Notification:Notify(
+    {Title = "Hitbox Extender Added ✅", Description = "Ruslan ON ToP BaBy 🔥"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "default"}
+    )
 while _G.ruslan do
     local randNumHead = math.random(1, 100)
     local randNumTorso = math.random(1, 100)
@@ -131,16 +140,6 @@ while _G.ruslan do
 
     game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
     game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
-    local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
-    local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
-
-
-    wait(1)
-    
-    Notification:Notify(
-    {Title = "HBE Done", Description = "Ruslan ON ToP BaBy"},
-    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "default"}
-    )
 
     wait(0.5)
 end
