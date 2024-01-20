@@ -75,8 +75,6 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
     end
     return antihitbox2(...)
 end))
-
-_G.ruslan = true
     local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
     local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
 
@@ -87,6 +85,8 @@ _G.ruslan = true
     {Title = "Hitbox Extender Added ✅", Description = "Ruslan ON ToP BaBy 🔥"},
     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "default"}
     )
+_G.ruslan = true
+
 while _G.ruslan do
     local randNumHead = math.random(1, 100)
     local randNumTorso = math.random(1, 100)
