@@ -93,27 +93,27 @@ while _G.ruslan do
     local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        xdHead = 4.5
+        xdHead = 4.8
     elseif randNumHead <= 80 then
-        xdHead = 5.4
+        xdHead = 5.7
     elseif randNumHead <= 90 then
-        xdHead = 6
+        xdHead = 6.3
     elseif randNumHead <= 95 then
-        xdHead = 6.5
+        xdHead = 6.8
     else
-        xdHead = 6.6
+        xdHead = 6.9
     end
 
     if randNumTorso <= 20 then
-        xdTorso = 5.4
+        xdTorso = 5.7
     elseif randNumTorso <= 50 then
-        xdTorso = 5.9
+        xdTorso = 6.2
     elseif randNumTorso <= 70 then
-        xdTorso = 6.1
+        xdTorso = 6.4
     elseif randNumTorso <= 88 then
-        xdTorso = 6.6
+        xdTorso = 6.9
     else
-        xdTorso = 7.1
+        xdTorso = 7.4
     end
 
     local HitboxExpanderHead = { HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead }
