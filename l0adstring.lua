@@ -1,6 +1,6 @@
-wait(1)
-local Camera = game:GetService("Workspace").CurrentCamera
-local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
+
+
+
 
 --[[
 local originalTerrainDecoration = gethiddenproperty(game.Workspace.Terrain, "Decoration")
@@ -55,6 +55,25 @@ game:GetService("SoundService").PlayerHitHeadshot.SoundId = "rbxassetid://872688
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Dustin21335/Full-bright/main/fullbright.lua"))()
 
 ]]
+wait(0.1)
+local Camera = game:GetService("Workspace").CurrentCamera
+local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
+local UserInputService = game:GetService("UserInputService")
+local toggleKey = Enum.KeyCode.Y  -- Cambia esto al código de tecla deseado
+
+local function onKeyPress(input, gameProcessedEvent)
+    if not gameProcessedEvent then
+        if input.KeyCode == toggleKey then
+            _G.ruslan = not _G.ruslan
+            Notification:Notify(
+                {Title = "Loop Toggled", Description = "Loop is now " .. (_G.ruslan and "enabled" or "disabled")},
+                {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 3, Type = "default"}
+            )
+        end
+    end
+end
+
+UserInputService.InputBegan:Connect(onKeyPress)
 
 local antihitbox
 antihitbox = hookmetamethod(game, "__newindex", newcclosure(function(...)
@@ -86,39 +105,7 @@ Notification:Notify(
 
 _G.ruslan = true
 
-local loopActive = true
-
-local function toggleLoop()
-    loopActive = not loopActive
-    if not loopActive then
-        for _, i in pairs(workspace:GetChildren()) do
-            if i:FindFirstChild("HumanoidRootPart") then
-                if i:FindFirstChild("Head") then
-                    i.Head.Size = Vector3.new(1.672248125076294, 0.835624098777771, 0.835624098777771)
-                end
-                if i:FindFirstChild("Torso") then
-                    i.Torso.Size = Vector3.new(0.6530659198760986, 2.220424175262451, 1.4367451667785645)
-                end
-            end
-        end
-    end
-
-    local status = loopActive and "Activated" or "Deactivated"
-    Notification:Notify(
-        {Title = "Loop " .. status .. " 🔒", Description = "Press 'P' to toggle."},
-        {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 3, Type = "default"}
-    )
-end
-
-game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessedEvent)
-    if not gameProcessedEvent then
-        if input.KeyCode == Enum.KeyCode.P then
-            toggleLoop()
-        end
-    end
-end)
-
-while loopActive do
+while _G.ruslan do
     local randNumHead = math.random(1, 100)
     local randNumTorso = math.random(1, 100)
     local xdHead, xdTorso
