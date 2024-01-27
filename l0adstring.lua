@@ -1,3 +1,6 @@
+wait(1)
+local Camera = game:GetService("Workspace").CurrentCamera
+local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
 
 
 
@@ -55,26 +58,6 @@ game:GetService("SoundService").PlayerHitHeadshot.SoundId = "rbxassetid://872688
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Dustin21335/Full-bright/main/fullbright.lua"))()
 
 ]]
-wait(0.1)
-local Camera = game:GetService("Workspace").CurrentCamera
-local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
-local UserInputService = game:GetService("UserInputService")
-local toggleKey = Enum.KeyCode.Y  -- Cambia esto al código de tecla deseado
-
-local function onKeyPress(input, gameProcessedEvent)
-    if not gameProcessedEvent then
-        if input.KeyCode == toggleKey then
-            _G.ruslan = not _G.ruslan
-            Notification:Notify(
-                {Title = "Loop Toggled", Description = "Loop is now " .. (_G.ruslan and "enabled" or "disabled")},
-                {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 3, Type = "default"}
-            )
-        end
-    end
-end
-
-UserInputService.InputBegan:Connect(onKeyPress)
-
 local antihitbox
 antihitbox = hookmetamethod(game, "__newindex", newcclosure(function(...)
     local self, k = ...
@@ -92,17 +75,16 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
     end
     return antihitbox2(...)
 end))
+    local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
+    local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
 
-local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
-local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
 
-wait(1)
-
-Notification:Notify(
-    {Title = "Hitbox Extender Added ✅", Description = "Ruslan Baby (LOADED) 🔥"},
-    {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "default"}
-)
-
+    wait(1)
+    
+    Notification:Notify(
+    {Title = "Hitbox Extender Added [✅]", Description = "Ruslan Baby (LOADED) 🔥"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "default"}
+    )
 _G.ruslan = true
 
 while _G.ruslan do
@@ -111,15 +93,15 @@ while _G.ruslan do
     local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        xdHead = 5
+        xdHead = 5.35
     elseif randNumHead <= 80 then
-        xdHead = 5.8
+        xdHead = 6
     elseif randNumHead <= 90 then
-        xdHead = 6.4
+        xdHead = 6.6
     elseif randNumHead <= 95 then
-        xdHead = 6.9
+        xdHead = 7.2
     else
-        xdHead = 7
+        xdHead = 7.3
     end
 
     if randNumTorso <= 20 then
