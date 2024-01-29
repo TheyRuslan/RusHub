@@ -54,6 +54,10 @@ function Esp:RemoveEsp(PlayerTable)
     end
     Esp.Players[PlayerTable.model] = nil;
 end
+
+local EspOffsetY = 10  -- Ajusta este valor para cambiar la posición vertical del ESP
+local EspOffsetX = 5   -- Ajusta este valor para cambiar la posición horizontal del ESP
+
 function Esp:UpdateEsp()
     for i, v in pairs(Esp.Players) do
         local Character = i
@@ -91,6 +95,7 @@ function Esp:UpdateEsp()
             else
                 v.Box.Visible = false
             end
+
             if OnScreen == true and Esp.Settings.ViewAngle == true and Distance <= Esp.Settings.RenderDistance then
                 if Esp.Settings.TeamCheck == true and TeamTag == false then
                     v.ViewAngle.Visible = true
@@ -107,13 +112,13 @@ function Esp:UpdateEsp()
                 v.Transparency = Esp.Settings.ViewAngleTransparrency
                 local headpos = Camera:WorldToViewportPoint(Character.Head.Position)
                 local offsetCFrame = CFrame.new(0, 0, -4)
-                v.ViewAngle.From = Vector2.new(headpos.X, headpos.Y)
+                v.ViewAngle.From = Vector2.new(headpos.X + EspOffsetX, headpos.Y + EspOffsetY)
                 local value = math.clamp(1 / Distance * 100, 0.1, 1)
                 local dir = Character.Head.CFrame:ToWorldSpace(offsetCFrame)
                 offsetCFrame = offsetCFrame * CFrame.new(0, 0, 0.4)
                 local dirpos = Camera:WorldToViewportPoint(Vector3.new(dir.X, dir.Y, dir.Z))
                 if OnScreen == true then
-                    v.ViewAngle.To = Vector2.new(dirpos.X, dirpos.Y)
+                    v.ViewAngle.To = Vector2.new(dirpos.X + EspOffsetX, dirpos.Y + EspOffsetY)
                     offsetCFrame = CFrame.new(0, 0, -4)
                 end
             else
