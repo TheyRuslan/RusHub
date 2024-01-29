@@ -7,7 +7,7 @@ local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middl
 --// Tables
 local Functions = {}
 local Esp = {Settings={
-    Boxes=false,BoxesColor=Color3.fromRGB(144, 66, 245),
+    Boxes=true,BoxesColor=Color3.fromRGB(144, 66, 245),
     Sleeping=false,SleepingColor=Color3.fromRGB(255,255,255),
     Distances=false,DistanceColor=Color3.fromRGB(255,255,255),
     Armour=false,ArmourColor=Color3.fromRGB(255,255,255),
