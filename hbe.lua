@@ -55,7 +55,7 @@ function Esp:RemoveEsp(PlayerTable)
     Esp.Players[PlayerTable.model] = nil;
 end
 
-local EspOffsetY = -20  -- Ajusta este valor para cambiar la posición vertical del ESP
+local EspOffsetY = -70  -- Ajusta este valor para cambiar la posición vertical del ESP
 local EspOffsetX = 20   -- Ajusta este valor para cambiar la posición horizontal del ESP
 
 function Esp:UpdateEsp()
