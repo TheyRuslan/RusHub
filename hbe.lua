@@ -59,10 +59,9 @@ function Esp:UpdateEsp()
     for i,v in pairs(Esp.Players) do
         local Character = i
         local Position,OnScreen = Camera:WorldToViewportPoint(Character:GetPivot().Position);
-        local scaleFactor = 0.5 -- Experimenta con diferentes valores
-        local scale = 1 / (Position.Z * math.tan(math.rad(Camera.FieldOfView * 0.5)) * 2) * 100;
-        local w,h = math.floor(32 * scale * scaleFactor), math.floor(60 * scale * scaleFactor);
-        local x,y = math.floor(Position.X * scaleFactor), math.floor(Position.Y * scaleFactor);
+        local scaleFactor = 1 -- Experimenta con diferentes valores
+        local w, h = math.floor(32 * scale * scaleFactor), math.floor(60 * scale * scaleFactor);
+        local x, y = math.floor((Position.X - w * 0.5) * scaleFactor), math.floor((Position.Y - h * 0.5) * scaleFactor);
         local Distance = (CharcaterMiddle:GetPivot().Position-Character:GetPivot().Position).Magnitude
         local BoxPosX,BoxPosY = math.floor(x - w * 0.5),math.floor(y - h * 0.5)
         local offsetCFrame = CFrame.new(0, 0, -4)
