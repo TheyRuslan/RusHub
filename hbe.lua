@@ -5,46 +5,58 @@ local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middl
 
 --// Tables
 local Functions = {}
-local Esp = {Settings={
-    Boxes=false,BoxesColor=Color3.fromRGB(144, 66, 245),
-    Sleeping=false,SleepingColor=Color3.fromRGB(255,255,255),
-    Distances=false,DistanceColor=Color3.fromRGB(255,255,255),
-    Armour=false,ArmourColor=Color3.fromRGB(255,255,255),
-    Tool=false,ToolColor=Color3.fromRGB(255,255,255),
-    ViewAngle=true,ViewAngleColor=Color3.fromRGB(144, 66, 245),ViewAngleThickness=1,ViewAngleTransparrency=1,
-    TextFont=2,TextOutline=true,TextSize=13,RenderDistance=1000,TeamCheck=false,TargetSleepers=true,MinTextSize=11
-},Drawings={},Connections={},Players={}}
-local Fonts = {["UI"]=0,["System"]=1,["Plex"]=2,["Monospace"]=3}
+local Esp = {
+    Settings = {
+        Boxes = false, BoxesColor = Color3.fromRGB(144, 66, 245),
+        Sleeping = false, SleepingColor = Color3.fromRGB(255, 255, 255),
+        Distances = false, DistanceColor = Color3.fromRGB(255, 255, 255),
+        Armour = false, ArmourColor = Color3.fromRGB(255, 255, 255),
+        Tool = false, ToolColor = Color3.fromRGB(255, 255, 255),
+        ViewAngle = true, ViewAngleColor = Color3.fromRGB(144, 66, 245), ViewAngleThickness = 1, ViewAngleTransparency = 1,
+        TextFont = 2, TextOutline = true, TextSize = 13, RenderDistance = 1000, TeamCheck = false, TargetSleepers = true, MinTextSize = 11
+    },
+    Drawings = {},
+    Connections = {},
+    Players = {}
+}
+local Fonts = { ["UI"] = 0, ["System"] = 1, ["Plex"] = 2, ["Monospace"] = 3 }
 local cache = {}
 
 --// Functions
 function Functions:IsSleeping(Model)
     if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
-		for i,v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
-            if v.Animation.AnimationId == "rbxassetid://13280887764" then return true
-            else return false
+        for i, v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
+            if v.Animation.AnimationId == "rbxassetid://13280887764" then
+                return true
+            else
+                return false
             end
         end
     end
 end
-function Functions:Draw(Type,Propities)
+
+function Functions:Draw(Type, Propities)
     if not Type and not Propities then return end
     local drawing = Drawing.new(Type)
-    for i,v in pairs(Propities) do drawing[i] = v end
-    table.insert(Esp.Drawings,drawing)
+    for i, v in pairs(Propities) do
+        drawing[i] = v
+    end
+    table.insert(Esp.Drawings, drawing)
     return drawing
 end
+
 function Esp:CreateEsp(PlayerTable)
     if not PlayerTable then return end
     local drawings = {}
-    drawings.Box = Functions:Draw("Square",{Transparency=0.35,Color=Esp.Settings.BoxesColor,Visible=false,Visible=false});
-    drawings.Sleeping = Functions:Draw("Text",{Text = "Nil",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=true,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.SleepingColor,ZIndex = 2,Visible=false})
-    drawings.Distance = Functions:Draw("Text",{Text = "Nil",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=true,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.SleepingColor,ZIndex = 2,Visible=false})
-    drawings.Armour = Functions:Draw("Text",{Text = "None",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=false,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.ArmourColor,ZIndex = 2,Visible=false})
-    drawings.ViewAngle = Functions:Draw("Line",{Thickness=Esp.Settings.ViewAngleThickness,Transparency=Esp.Settings.ViewAngleTransparrency,Color=Esp.Settings.ViewAngleColor,ZIndex=2,Visible=false})
+    drawings.Box = Functions:Draw("Square", { Transparency = 0.35, Color = Esp.Settings.BoxesColor, Visible = false });
+    drawings.Sleeping = Functions:Draw("Text", { Text = "Nil", Font = Esp.Settings.TextFont, Size = Esp.Settings.TextSize, Center = true, Outline = Esp.Settings.TextOutline, Color = Esp.Settings.SleepingColor, ZIndex = 2, Visible = false })
+    drawings.Distance = Functions:Draw("Text", { Text = "Nil", Font = Esp.Settings.TextFont, Size = Esp.Settings.TextSize, Center = true, Outline = Esp.Settings.TextOutline, Color = Esp.Settings.SleepingColor, ZIndex = 2, Visible = false })
+    drawings.Armour = Functions:Draw("Text", { Text = "None", Font = Esp.Settings.TextFont, Size = Esp.Settings.TextSize, Center = false, Outline = Esp.Settings.TextOutline, Color = Esp.Settings.ArmourColor, ZIndex = 2, Visible = false })
+    drawings.ViewAngle = Functions:Draw("Line", { Thickness = Esp.Settings.ViewAngleThickness, Transparency = Esp.Settings.ViewAngleTransparency, Color = Esp.Settings.ViewAngleColor, ZIndex = 2, Visible = false })
     drawings.PlayerTable = PlayerTable
     Esp.Players[PlayerTable.model] = drawings
 end
+
 function Esp:RemoveEsp(PlayerTable)
     if not PlayerTable and PlayerTable.model ~= nil then return end
     esp = Esp.Players[PlayerTable.model];
@@ -55,8 +67,8 @@ function Esp:RemoveEsp(PlayerTable)
     Esp.Players[PlayerTable.model] = nil;
 end
 
-local EspOffsetY = -70  -- Ajusta este valor para cambiar la posición vertical del ESP
-local EspOffsetX = 20   -- Ajusta este valor para cambiar la posición horizontal del ESP
+local EspOffsetY = 10  -- Ajusta este valor para cambiar la posición vertical del ESP
+local EspOffsetX = 5   -- Ajusta este valor para cambiar la posición horizontal del ESP
 
 function Esp:UpdateEsp()
     for i, v in pairs(Esp.Players) do
@@ -138,16 +150,18 @@ local PlayerUpdater = game:GetService("RunService").RenderStepped
 local PlayerConnection = PlayerUpdater:Connect(function()
     Esp:UpdateEsp()
 end)
-for i,v in pairs(workspace:GetChildren()) do
-	if v:FindFirstChild("HumanoidRootPart") then
-        table.insert(cache,v)
-        Esp:CreateEsp({model=v})
-	end
+
+for i, v in pairs(workspace:GetChildren()) do
+    if v:FindFirstChild("HumanoidRootPart") then
+        table.insert(cache, v)
+        Esp:CreateEsp({ model = v })
+    end
 end
+
 game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if child:FindFirstChild("HumanoidRootPart") and not table.find(cache,child) then
-        table.insert(cache,child)
-        Esp:CreateEsp({model=child})
+    if child:FindFirstChild("HumanoidRootPart") and not table.find(cache, child) then
+        table.insert(cache, child)
+        Esp:CreateEsp({ model = child })
     end
 end)
 
