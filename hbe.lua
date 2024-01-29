@@ -69,8 +69,8 @@ function Esp:UpdateEsp()
         local BoxPosX, BoxPosY = math.floor(x - w * 0.5), math.floor(y - h * 0.5)
 
         -- Adjust positions and sizes based on emulator resolution (2950x1600)
-        local scaleFactorX = Camera.ViewportSize.X / 1920
-        local scaleFactorY = Camera.ViewportSize.Y / 1080
+        local scaleFactorX = Camera.ViewportSize.X / 2950
+        local scaleFactorY = Camera.ViewportSize.Y / 1600
         BoxPosX, BoxPosY, w, h = BoxPosX * scaleFactorX, BoxPosY * scaleFactorY, w * scaleFactorX, h * scaleFactorY
 
         local offsetCFrame = CFrame.new(0, 0, -4)
