@@ -279,27 +279,27 @@ while _G.legit == true do
     local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        xdHead = 3.2
+        xdHead = 2.5
     elseif randNumHead <= 80 then
-        xdHead = 3.5
+        xdHead = 2.6
     elseif randNumHead <= 90 then
-        xdHead = 4.4
+        xdHead = 2.7
     elseif randNumHead <= 95 then
-        xdHead = 4
+        xdHead = 2.9
     else
-        xdHead = 4.2
+        xdHead = 3.4
     end
 
     if randNumTorso <= 20 then
         xdTorso = 5
     elseif randNumTorso <= 50 then
-        xdTorso = 3.9
+        xdTorso = 5.1
     elseif randNumTorso <= 70 then
-        xdTorso = 4
+        xdTorso = 5.2
     elseif randNumTorso <= 88 then
-        xdTorso = 4.3
+        xdTorso = 5.3
     else
-        xdTorso = 4.5
+        xdTorso = 5.5
     end
 
     local HitboxExpanderHead = { HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead }
