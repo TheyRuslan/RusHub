@@ -195,8 +195,8 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
 end))
     local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
     local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
-   _G.blatant = true
-   _G.legit = false
+   _G.blatant = false
+   _G.legit = true
 
     wait(1)
     if _G.blatant == true then
