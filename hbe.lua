@@ -279,11 +279,11 @@ while _G.legit == true do
     local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        xdHead = 6.5
+        xdHead = 3.2
     elseif randNumHead <= 80 then
         xdHead = 3.5
     elseif randNumHead <= 90 then
-        xdHead = 3.7
+        xdHead = 4.4
     elseif randNumHead <= 95 then
         xdHead = 4
     else
@@ -291,11 +291,11 @@ while _G.legit == true do
     end
 
     if randNumTorso <= 20 then
-        xdTorso = 7
+        xdTorso = 5
     elseif randNumTorso <= 50 then
-        xdTorso = 3.5
-    elseif randNumTorso <= 70 then
         xdTorso = 3.9
+    elseif randNumTorso <= 70 then
+        xdTorso = 4
     elseif randNumTorso <= 88 then
         xdTorso = 4.3
     else
