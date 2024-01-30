@@ -7,7 +7,7 @@ local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middl
 --// Tables
 local Functions = {}
 local Esp = {Settings={
-    Boxes=true,BoxesColor=Color3.fromRGB(144, 66, 245),
+    Boxes=false,BoxesColor=Color3.fromRGB(144, 66, 245),
     Sleeping=false,SleepingColor=Color3.fromRGB(255,255,255),
     Distances=false,DistanceColor=Color3.fromRGB(255,255,255),
     Armour=false,ArmourColor=Color3.fromRGB(255,255,255),
@@ -59,9 +59,9 @@ function Esp:UpdateEsp()
     for i,v in pairs(Esp.Players) do
         local Character = i
         local Position,OnScreen = Camera:WorldToViewportPoint(Character:GetPivot().Position);
-        local scaleFactor = 1 -- Experimenta con diferentes valores
-        local w, h = math.floor(32 * scale * scaleFactor), math.floor(60 * scale * scaleFactor);
-        local x, y = math.floor((Position.X - w * 0.5) * scaleFactor), math.floor((Position.Y - h * 0.5) * scaleFactor);
+        local scale = 1 / (Position.Z * math.tan(math.rad(Camera.FieldOfView * 0.5)) * 2) * 100;
+        local w,h = math.floor(32 * scale), math.floor(60 * scale);
+        local x,y = math.floor(Position.X), math.floor(Position.Y);
         local Distance = (CharcaterMiddle:GetPivot().Position-Character:GetPivot().Position).Magnitude
         local BoxPosX,BoxPosY = math.floor(x - w * 0.5),math.floor(y - h * 0.5)
         local offsetCFrame = CFrame.new(0, 0, -4)
@@ -88,7 +88,7 @@ function Esp:UpdateEsp()
                 if Esp.Settings.TeamCheck == true and TeamTag == false then v.ViewAngle.Visible = true elseif Esp.Settings.TeamCheck == true and TeamTag == true then v.ViewAngle.Visible = false else v.ViewAngle.Visible = true end
                 if Esp.Settings.TargetSleepers == true and sleeping == true then v.ViewAngle.Visible = false end
                 v.ViewAngle.Color = Esp.Settings.ViewAngleColor;v.ViewAngle.Thickness=Esp.Settings.ViewAngleThickness;v.Transparency=Esp.Settings.ViewAngleTransparrency;
-                local headpos = Camera:WorldToViewportPoint(Character.Head.Position * scaleFactor)
+                local headpos = Camera:WorldToViewportPoint(Character.Head.Position)
                 local offsetCFrame = CFrame.new(0, 0, -4)
                 v.ViewAngle.From = Vector2.new(headpos.X, headpos.Y)
                 local value = math.clamp(1/Distance*100, 0.1, 1)
@@ -195,7 +195,7 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
 end))
     local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
     local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
-   _G.blatant = false
+   _G.blatant = true
    _G.legit = false
 
     wait(1)
@@ -279,27 +279,27 @@ while _G.legit == true do
     local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        xdHead = 5.2
+        xdHead = 6.5
     elseif randNumHead <= 80 then
-        xdHead = 5.6
+        xdHead = 3.5
     elseif randNumHead <= 90 then
-        xdHead = 6.3
+        xdHead = 3.7
     elseif randNumHead <= 95 then
-        xdHead = 6.7
+        xdHead = 4
     else
-        xdHead = 7
+        xdHead = 4.2
     end
 
     if randNumTorso <= 20 then
-        xdTorso = 5.2
+        xdTorso = 7
     elseif randNumTorso <= 50 then
-        xdTorso = 5.7
+        xdTorso = 3.5
     elseif randNumTorso <= 70 then
-        xdTorso = 5.9
+        xdTorso = 3.9
     elseif randNumTorso <= 88 then
-        xdTorso = 6.3
+        xdTorso = 4.3
     else
-        xdTorso = 7.4
+        xdTorso = 4.5
     end
 
     local HitboxExpanderHead = { HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead }
