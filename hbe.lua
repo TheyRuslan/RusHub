@@ -240,16 +240,16 @@ while _G.blatant == true do
     local HitboxExpanderTorso = { HitBX = xdTorso, HitBY = xdTorso, HitBZ = xdTorso }
 
     for _, i in pairs(workspace:GetChildren()) do
-        if i:FindFirstChild("HumanoidRootPart") then
+        if i:IsA("Model") and i:FindFirstChild("HumanoidRootPart") and not Functions:IsSleeping(i) then
             if i:FindFirstChild("Head") then
-                i.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
+                i.Head.Size = Vector3.new(xdHead, xdHead, xdHead)
                 i.Head.CanCollide = false
                 i.Head.Color = Color3.fromRGB(144, 66, 245)
                 i.Head.Material = "ForceField"
                 i.Head.Transparency = 0.88
             end
             if i:FindFirstChild("Torso") then
-                i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
+                i.Torso.Size = Vector3.new(xdTorso, xdTorso, xdTorso)
                 i.Torso.CanCollide = false
                 i.Torso.Color = Color3.fromRGB(66, 144, 245)
                 i.Torso.Material = "ForceField"
@@ -257,9 +257,6 @@ while _G.blatant == true do
             end
         end
     end
-
-    game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
-    game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
 
     wait(0.5)
 end
@@ -306,16 +303,16 @@ while _G.legit == true do
     local HitboxExpanderTorso = { HitBX = xdTorso, HitBY = xdTorso, HitBZ = xdTorso }
 
     for _, i in pairs(workspace:GetChildren()) do
-        if i:FindFirstChild("HumanoidRootPart") then
+        if i:IsA("Model") and i:FindFirstChild("HumanoidRootPart") and not Functions:IsSleeping(i) then
             if i:FindFirstChild("Head") then
-                i.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
+                i.Head.Size = Vector3.new(xdHead, xdHead, xdHead)
                 i.Head.CanCollide = false
                 i.Head.Color = Color3.fromRGB(144, 66, 245)
                 i.Head.Material = "ForceField"
                 i.Head.Transparency = 0.88
             end
             if i:FindFirstChild("Torso") then
-                i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
+                i.Torso.Size = Vector3.new(xdTorso, xdTorso, xdTorso)
                 i.Torso.CanCollide = false
                 i.Torso.Color = Color3.fromRGB(66, 144, 245)
                 i.Torso.Material = "ForceField"
@@ -323,6 +320,9 @@ while _G.legit == true do
             end
         end
     end
+
+    wait(0.5)
+end
 
     game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
     game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
