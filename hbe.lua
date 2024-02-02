@@ -1,24 +1,5 @@
-wait(1)
-function hookmetamethod(obj, method, func)
-    local originalMethod = obj[method]
-
-    setmetatable(obj, {
-        __index = function(self, k)
-            if k == method then
-                return function(...)
-                    return func(originalMethod, ...)
-                end
-            else
-                return originalMethod[k]
-            end
-        end
-    })
-end
 local Camera = game:GetService("Workspace").CurrentCamera
 local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
-
-
-
 --// Tables
 local Functions = {}
 local Esp = {Settings={
