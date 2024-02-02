@@ -15,7 +15,7 @@ local antixray
 antixray = hookmetamethod(game, "__index", newcclosure(function(...)
     local self, k = ...
     if not checkcaller() and k == "Hitbox" and self.Name == "Transparency" then
-        return 1
+        return 0
     end
     return antixray(...)
 end))
