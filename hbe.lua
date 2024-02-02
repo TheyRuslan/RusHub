@@ -40,7 +40,7 @@ end))
 
 for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
     if v:FindFirstChild("Hitbox") then
-        v.Hitbox.Transparency = 0.74
+        v.Hitbox.Transparency = 0.44
     end
 end
 
