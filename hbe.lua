@@ -123,6 +123,12 @@ game:GetService("Workspace").ChildAdded:Connect(function(child)
         Esp:CreateEsp({model=child})
     end
 end)
+
+for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+if v:FindFirstChild("Hitbox") then
+v.Hitbox.Transparency = 0.8
+end
+end
 --[[
 local originalTerrainDecoration = gethiddenproperty(game.Workspace.Terrain, "Decoration")
 local originalGlobalShadows = gethiddenproperty(game:GetService("Lighting"), "GlobalShadows")
@@ -192,6 +198,14 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
         return Vector3.new(0.6530659198760986, 2.220424175262451, 1.4367451667785645)
     end
     return antihitbox2(...)
+end))
+local antixray
+antixray = hookmetamethod(game, "__index", newcclosure(function(...)
+local self, k = ...
+if not checkcaller() and k == "Hitbox" and self.Name == "Transparency" then
+	return 1
+end
+return antixray(...)
 end))
     local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
     local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
