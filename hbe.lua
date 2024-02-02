@@ -11,15 +11,6 @@ Notification:Notify(
     {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "default"}
 )
 
-local antixray
-antixray = hookmetamethod(game, "__index", newcclosure(function(...)
-    local self, k = ...
-    if not checkcaller() and k == "Hitbox" and self.Name == "Transparency" then
-        return 0
-    end
-    return antixray(...)
-end))
-
 local antihitbox
 antihitbox = hookmetamethod(game, "__newindex", newcclosure(function(...)
     local self, k = ...
@@ -37,12 +28,6 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
     end
     return antihitbox2(...)
 end))
-
-for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
-    if v:FindFirstChild("Hitbox") then
-        v.Hitbox.Transparency = 0.44
-    end
-end
 
 local Functions = {}
 local Esp = {
