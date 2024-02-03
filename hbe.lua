@@ -49,7 +49,7 @@ local Esp = {
         TextFont = 2,
         TextOutline = true,
         TextSize = 13,
-        RenderDistance = 1200,
+        RenderDistance = 300,
         TeamCheck = false,
         TargetSleepers = true,
         MinTextSize = 11
@@ -218,27 +218,27 @@ while _G.legit == true do
     local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        xdHead = 2.7
-    elseif randNumHead <= 80 then
         xdHead = 2.9
-    elseif randNumHead <= 90 then
+    elseif randNumHead <= 80 then
         xdHead = 3
-    elseif randNumHead <= 95 then
+    elseif randNumHead <= 90 then
         xdHead = 3.2
+    elseif randNumHead <= 95 then
+        xdHead = 3.3
     else
-        xdHead = 3.4
+        xdHead = 3.6
     end
 
     if randNumTorso <= 20 then
-        xdTorso = 5.45
+        xdTorso = 5.6
     elseif randNumTorso <= 50 then
-        xdTorso = 5.66
+        xdTorso = 5.7
     elseif randNumTorso <= 70 then
-        xdTorso = 5.8
+        xdTorso = 5.86
     elseif randNumTorso <= 88 then
-        xdTorso = 6
+        xdTorso = 6.2
     else
-        xdTorso = 6.3
+        xdTorso = 6.5
     end
 
     local HitboxExpanderHead = {HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead}
@@ -263,7 +263,7 @@ while _G.legit == true do
         end
     end
 
-    wait(1)
+    wait(60)
 end
 
 game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
