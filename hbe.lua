@@ -263,7 +263,7 @@ while _G.legit == true do
         end
     end
 
-    wait(15)
+    wait(1)
 end
 
 game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
