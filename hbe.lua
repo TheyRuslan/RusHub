@@ -29,6 +29,7 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
     return antihitbox2(...)
 end))
 
+--[[
 local Functions = {}
 local Esp = {
     Settings = {
@@ -209,6 +210,7 @@ game:GetService("Workspace").ChildAdded:Connect(function(child)
         Esp:CreateEsp({model = child})
     end
 end)
+]]
 
 _G.legit = true
 
@@ -263,7 +265,7 @@ while _G.legit == true do
         end
     end
 
-    wait(60)
+    wait(1)
 end
 
 game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
