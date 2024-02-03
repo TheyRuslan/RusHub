@@ -29,7 +29,7 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
     return antihitbox2(...)
 end))
 
---[[
+
 local Functions = {}
 local Esp = {
     Settings = {
@@ -210,7 +210,7 @@ game:GetService("Workspace").ChildAdded:Connect(function(child)
         Esp:CreateEsp({model = child})
     end
 end)
-]]
+
 
 _G.legit = true
 
