@@ -11,7 +11,8 @@ Notification:Notify(
     {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "default"}
 )
 
-local antihitbox
+local antihitbox, antihitbox2
+
 antihitbox = hookmetamethod(game, "__newindex", newcclosure(function(...)
     local self, k = ...
     if not checkcaller() and k == "Size" and self.Name == "Head" then
@@ -20,7 +21,6 @@ antihitbox = hookmetamethod(game, "__newindex", newcclosure(function(...)
     return antihitbox(...)
 end))
 
-local antihitbox2
 antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
     local self, k = ...
     if not checkcaller() and k == "Size" and self.Name == "Torso" then
