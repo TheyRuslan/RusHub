@@ -245,7 +245,7 @@ while _G.legit == true do
     local HitboxExpanderTorso = {HitBX = xdTorso, HitBY = xdTorso, HitBZ = xdTorso}
 
     for _, i in pairs(workspace:GetChildren()) do
-        if i:IsA("Model") and i:FindFirstChild("HumanoidRootPart") then
+        if i:IsA("Model") and i:FindFirstChild("HumanoidRootPart") and not Functions:IsSleeping(i) then
             if i:FindFirstChild("Head") then
                 i.Head.Size = Vector3.new(xdHead, xdHead, xdHead)
                 i.Head.CanCollide = false
