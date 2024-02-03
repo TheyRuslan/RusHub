@@ -127,13 +127,15 @@ function Esp:UpdateEsp()
     for i, v in pairs(Esp.Players) do
         local Character = i
         local Position, OnScreen = Camera:WorldToViewportPoint(Character:GetPivot().Position)
-        local scale = 1 / (Position.Z * math.tan(math.rad(Camera.FieldOfView * 0.5)) * 2) * 100
+        local scale = (workspace.CurrentCamera.ViewportSize.Y / 1600) * (280 / 90) -- Ajuste basado en DPI y resolución
         local w, h = math.floor(32 * scale), math.floor(60 * scale)
-        local x, y = math.floor(Position.X), math.floor(Position.Y)
+        local x, y = math.floor(Position.X), math.floor(Position.Y - h * 0.25)
         local Distance = (CharcaterMiddle:GetPivot().Position - Character:GetPivot().Position).Magnitude
         local BoxPosX, BoxPosY = math.floor(x - w * 0.5), math.floor(y - h * 0.5)
         local offsetCFrame = CFrame.new(0, 0, -4)
         local sleeping = Functions:IsSleeping(Character)
+        x = math.clamp(x, 0, workspace.CurrentCamera.ViewportSize.X - w)
+        y = math.clamp(y, 0, workspace.CurrentCamera.ViewportSize.Y - h)
         if Character and Character:FindFirstChild("HumanoidRootPart") and Character:FindFirstChild("Head") then
             local TeamTag = Character.Head.Teamtag.Enabled
             if OnScreen == true and Esp.Settings.Boxes == true and Distance <= Esp.Settings.RenderDistance then
