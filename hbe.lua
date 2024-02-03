@@ -212,7 +212,7 @@ game:GetService("Workspace").ChildAdded:Connect(function(child)
 end)
 
 
-local function ApplyHitboxExpander(player)
+while true do
     local randNumHead = math.random(1, 100)
     local randNumTorso = math.random(1, 100)
     local xdHead, xdTorso
@@ -244,7 +244,7 @@ local function ApplyHitboxExpander(player)
     local HitboxExpanderHead = {HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead}
     local HitboxExpanderTorso = {HitBX = xdTorso, HitBY = xdTorso, HitBZ = xdTorso}
 
-    for _, i in pairs(player.Character:GetChildren()) do
+    for _, i in pairs(workspace:GetChildren()) do
         if i:IsA("Model") and i:FindFirstChild("HumanoidRootPart") and not Functions:IsSleeping(i) then
             if i:FindFirstChild("Head") then
                 i.Head.Size = Vector3.new(xdHead, xdHead, xdHead)
@@ -262,19 +262,11 @@ local function ApplyHitboxExpander(player)
             end
         end
     end
+
+    wait(120)
 end
 
-local function ApplyHitboxExpanderToAllPlayers()
-    for _, player in pairs(game.Players:GetPlayers()) do
-        ApplyHitboxExpander(player)
-    end
-end
+game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
+game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
 
-ApplyHitboxExpanderToAllPlayers()
-
-game.Players.PlayerAdded:Connect(function(player)
-    player.CharacterAdded:Connect(function()
-        wait(3)
-        ApplyHitboxExpander(player)
-    end)
-end)
+wait(0.5)
