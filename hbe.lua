@@ -212,49 +212,45 @@ game:GetService("Workspace").ChildAdded:Connect(function(child)
 end)
 
 
-while true do
+local function ExpandHitbox()
     local randNumHead = math.random(1, 100)
     local randNumTorso = math.random(1, 100)
-    local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        xdHead = 2.9
+        HitboxExpanderHead = {HitBX = 2.9, HitBY = 2.9, HitBZ = 2.9}
     elseif randNumHead <= 80 then
-        xdHead = 3
+        HitboxExpanderHead = {HitBX = 3, HitBY = 3, HitBZ = 3}
     elseif randNumHead <= 90 then
-        xdHead = 3.2
+        HitboxExpanderHead = {HitBX = 3.2, HitBY = 3.2, HitBZ = 3.2}
     elseif randNumHead <= 95 then
-        xdHead = 3.3
+        HitboxExpanderHead = {HitBX = 3.3, HitBY = 3.3, HitBZ = 3.3}
     else
-        xdHead = 3.6
+        HitboxExpanderHead = {HitBX = 3.6, HitBY = 3.6, HitBZ = 3.6}
     end
 
     if randNumTorso <= 20 then
-        xdTorso = 5.6
+        HitboxExpanderTorso = {HitBX = 5.6, HitBY = 5.6, HitBZ = 5.6}
     elseif randNumTorso <= 50 then
-        xdTorso = 5.7
+        HitboxExpanderTorso = {HitBX = 5.7, HitBY = 5.7, HitBZ = 5.7}
     elseif randNumTorso <= 70 then
-        xdTorso = 5.86
+        HitboxExpanderTorso = {HitBX = 5.86, HitBY = 5.86, HitBZ = 5.86}
     elseif randNumTorso <= 88 then
-        xdTorso = 6.2
+        HitboxExpanderTorso = {HitBX = 6.2, HitBY = 6.2, HitBZ = 6.2}
     else
-        xdTorso = 6.5
+        HitboxExpanderTorso = {HitBX = 6.5, HitBY = 6.5, HitBZ = 6.5}
     end
-
-    local HitboxExpanderHead = {HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead}
-    local HitboxExpanderTorso = {HitBX = xdTorso, HitBY = xdTorso, HitBZ = xdTorso}
 
     for _, i in pairs(workspace:GetChildren()) do
         if i:IsA("Model") and i:FindFirstChild("HumanoidRootPart") and not Functions:IsSleeping(i) then
             if i:FindFirstChild("Head") then
-                i.Head.Size = Vector3.new(xdHead, xdHead, xdHead)
+                i.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
                 i.Head.CanCollide = false
                 i.Head.Color = Color3.fromRGB(144, 66, 245)
                 i.Head.Material = "ForceField"
                 i.Head.Transparency = 0.88
             end
             if i:FindFirstChild("Torso") then
-                i.Torso.Size = Vector3.new(xdTorso, xdTorso, xdTorso)
+                i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
                 i.Torso.CanCollide = false
                 i.Torso.Color = Color3.fromRGB(66, 144, 245)
                 i.Torso.Material = "ForceField"
@@ -262,11 +258,17 @@ while true do
             end
         end
     end
-
-    wait(10)
 end
 
-game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
-game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
+-- Importar servicios
+local UserInputService = game:GetService("UserInputService")
 
-wait(0.5)
+-- Conectar la función a un evento de tecla (tecla "P")
+local function OnKeyPress(input, gameProcessedEvent)
+    if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.P then
+        ExpandHitbox()
+    end
+end
+
+-- Conectar el evento de tecla
+UserInputService.InputBegan:Connect(OnKeyPress)
