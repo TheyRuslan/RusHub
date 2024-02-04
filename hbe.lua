@@ -212,36 +212,42 @@ game:GetService("Workspace").ChildAdded:Connect(function(child)
 end)
 
 
-local function ExpandHitbox()
+_G.ruslan = true
+
+while _G.ruslan do
     local randNumHead = math.random(1, 100)
     local randNumTorso = math.random(1, 100)
+    local xdHead, xdTorso
 
     if randNumHead <= 50 then
-        HitboxExpanderHead = {HitBX = 2.9, HitBY = 2.9, HitBZ = 2.9}
+        xdHead = 5.35
     elseif randNumHead <= 80 then
-        HitboxExpanderHead = {HitBX = 3, HitBY = 3, HitBZ = 3}
+        xdHead = 6
     elseif randNumHead <= 90 then
-        HitboxExpanderHead = {HitBX = 3.2, HitBY = 3.2, HitBZ = 3.2}
+        xdHead = 6.6
     elseif randNumHead <= 95 then
-        HitboxExpanderHead = {HitBX = 3.3, HitBY = 3.3, HitBZ = 3.3}
+        xdHead = 7.2
     else
-        HitboxExpanderHead = {HitBX = 3.6, HitBY = 3.6, HitBZ = 3.6}
+        xdHead = 7.3
     end
 
     if randNumTorso <= 20 then
-        HitboxExpanderTorso = {HitBX = 5.6, HitBY = 5.6, HitBZ = 5.6}
+        xdTorso = 5.9
     elseif randNumTorso <= 50 then
-        HitboxExpanderTorso = {HitBX = 5.7, HitBY = 5.7, HitBZ = 5.7}
+        xdTorso = 6.4
     elseif randNumTorso <= 70 then
-        HitboxExpanderTorso = {HitBX = 5.86, HitBY = 5.86, HitBZ = 5.86}
+        xdTorso = 6.6
     elseif randNumTorso <= 88 then
-        HitboxExpanderTorso = {HitBX = 6.2, HitBY = 6.2, HitBZ = 6.2}
+        xdTorso = 7.15
     else
-        HitboxExpanderTorso = {HitBX = 6.5, HitBY = 6.5, HitBZ = 6.5}
+        xdTorso = 7.4
     end
 
+    local HitboxExpanderHead = { HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead }
+    local HitboxExpanderTorso = { HitBX = xdTorso, HitBY = xdTorso, HitBZ = xdTorso }
+
     for _, i in pairs(workspace:GetChildren()) do
-        if i:IsA("Model") and i:FindFirstChild("HumanoidRootPart") and not Functions:IsSleeping(i) then
+        if i:FindFirstChild("HumanoidRootPart") then
             if i:FindFirstChild("Head") then
                 i.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
                 i.Head.CanCollide = false
@@ -258,17 +264,9 @@ local function ExpandHitbox()
             end
         end
     end
+
+    game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
+    game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
+
+    wait(0.7)
 end
-
--- Importar servicios
-local UserInputService = game:GetService("UserInputService")
-
--- Conectar la función a un evento de tecla (tecla "P")
-local function OnKeyPress(input, gameProcessedEvent)
-    if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.P then
-        ExpandHitbox()
-    end
-end
-
--- Conectar el evento de tecla
-UserInputService.InputBegan:Connect(OnKeyPress)
