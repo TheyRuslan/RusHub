@@ -256,5 +256,5 @@ while _G.ruslan do
     game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
     game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
 
-    wait(5) -- Cambiado a wait para esperar un poco entre actualizaciones
+    wait(15) -- Cambiado a wait para esperar un poco entre actualizaciones
 end
