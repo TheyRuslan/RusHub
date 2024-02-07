@@ -1,7 +1,7 @@
 -- Trident [Ruslan]
 
 local Camera = game:GetService("Workspace").CurrentCamera
-local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
+local CharacterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
 
 local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
 local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
@@ -72,14 +72,13 @@ local cache = {}
 -- Functions
 function Functions:IsSleeping(Model)
     if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
-        for i, v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
+        for _, v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
             if v.Animation.AnimationId == "rbxassetid://13280887764" then
                 return true
-            else
-                return false
             end
         end
     end
+    return false
 end
 
 function Functions:Draw(Type, Properties)
@@ -99,11 +98,11 @@ function Esp:CreateEsp(PlayerTable)
         return
     end
     local drawings = {}
-    drawings.Box = Functions:Draw("Square", {Transparency = 0.35, Color = Esp.Settings.BoxesColor, Visible = false, Visible = false})
+    drawings.Box = Functions:Draw("Square", {Transparency = 0.35, Color = Esp.Settings.BoxesColor, Visible = false})
     drawings.Sleeping = Functions:Draw("Text", {Text = "Nil", Font = Esp.Settings.TextFont, Size = Esp.Settings.TextSize, Center = true, Outline = Esp.Settings.TextOutline, Color = Esp.Settings.SleepingColor, ZIndex = 2, Visible = false})
     drawings.Distance = Functions:Draw("Text", {Text = "Nil", Font = Esp.Settings.TextFont, Size = Esp.Settings.TextSize, Center = true, Outline = Esp.Settings.TextOutline, Color = Esp.Settings.SleepingColor, ZIndex = 2, Visible = false})
     drawings.Armour = Functions:Draw("Text", {Text = "None", Font = Esp.Settings.TextFont, Size = Esp.Settings.TextSize, Center = false, Outline = Esp.Settings.TextOutline, Color = Esp.Settings.ArmourColor, ZIndex = 2, Visible = false})
-    drawings.ViewAngle = Functions:Draw("Line", {Thickness = Esp.Settings.ViewAngleThickness, Transparency = Esp.Settings.ViewAngleTransparrency, Color = Esp.Settings.ViewAngleColor, ZIndex = 2, Visible = false})
+    drawings.ViewAngle = Functions:Draw("Line", {Thickness = Esp.Settings.ViewAngleThickness, Transparency = Esp.Settings.ViewAngleTransparency, Color = Esp.Settings.ViewAngleColor, ZIndex = 2, Visible = false})
     drawings.PlayerTable = PlayerTable
     Esp.Players[PlayerTable.model] = drawings
 end
@@ -112,11 +111,11 @@ function Esp:RemoveEsp(PlayerTable)
     if not PlayerTable and PlayerTable.model ~= nil then
         return
     end
-    esp = Esp.Players[PlayerTable.model]
+    local esp = Esp.Players[PlayerTable.model]
     if not esp then
         return
     end
-    for i, v in pairs(esp) do
+    for _, v in pairs(esp) do
         if not type(v) == "table" then
             v:Remove()
         end
@@ -125,14 +124,14 @@ function Esp:RemoveEsp(PlayerTable)
 end
 
 function Esp:UpdateEsp()
-    for i,v in pairs(Esp.Players) do
+    for i, v in pairs(Esp.Players) do
         local Character = i
-        local Position,OnScreen = Camera:WorldToViewportPoint(Character:GetPivot().Position);
+        local Position, OnScreen = Camera:WorldToViewportPoint(Character:GetPivot().Position);
         local scale = 1 / (Position.Z * math.tan(math.rad(Camera.FieldOfView * 0.5)) * 2) * 100;
-        local w,h = math.floor(32 * scale), math.floor(60 * scale);
-        local x,y = math.floor(Position.X), math.floor(Position.Y);
-        local Distance = (CharcaterMiddle:GetPivot().Position-Character:GetPivot().Position).Magnitude
-        local BoxPosX,BoxPosY = math.floor(x - w * 0.5),math.floor(y - h * 0.5)
+        local w, h = math.floor(32 * scale), math.floor(60 * scale);
+        local x, y = math.floor(Position.X), math.floor(Position.Y);
+        local Distance = (CharcaterMiddle:GetPivot().Position - Character:GetPivot().Position).Magnitude
+        local BoxPosX, BoxPosY = math.floor(x - w * 0.5), math.floor(y - h * 0.5)
         local offsetCFrame = CFrame.new(0, 0, -4)
         local sleeping = Functions:IsSleeping(Character)
         if Character and Character:FindFirstChild("HumanoidRootPart") and Character:FindFirstChild("Head") then
@@ -167,7 +166,7 @@ function Esp:UpdateEsp()
                 end
                 v.ViewAngle.Color = Esp.Settings.ViewAngleColor
                 v.ViewAngle.Thickness = Esp.Settings.ViewAngleThickness
-                v.Transparency = Esp.Settings.ViewAngleTransparrency
+                v.Transparency = Esp.Settings.ViewAngleTransparency
                 local headpos = Camera:WorldToViewportPoint(Character.Head.Position)
                 local offsetCFrame = CFrame.new(0, 0, -4)
                 v.ViewAngle.From = Vector2.new(headpos.X, headpos.Y)
@@ -192,27 +191,16 @@ function Esp:UpdateEsp()
     end
 end
 
-local PlayerUpdater = game:GetService("RunService").RenderStepped
-local PlayerConnection = PlayerUpdater:Connect(function()
+local PlayerUpdater = game:GetService("RunService").Stepped -- Cambiado a Stepped para ejecutar con menos frecuencia
+local PlayerConnection -- Declarado fuera del loop
+
+-- Desactivar la actualización inicialmente
+PlayerConnection = PlayerUpdater:Connect(function()
     Esp:UpdateEsp()
 end)
+PlayerConnection:Disconnect()
 
-for i, v in pairs(workspace:GetChildren()) do
-    if v:FindFirstChild("HumanoidRootPart") then
-        table.insert(cache, v)
-        Esp:CreateEsp({model = v})
-    end
-end
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if child:FindFirstChild("HumanoidRootPart") and not table.find(cache, child) then
-        table.insert(cache, child)
-        Esp:CreateEsp({model = child})
-    end
-end)
-
-
-_G.ruslan = true
+local _G.ruslan = true
 
 while _G.ruslan do
     local randNumHead = math.random(1, 100)
@@ -268,5 +256,5 @@ while _G.ruslan do
     game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
     game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
 
-    wait(5)
+    wait(5) -- Cambiado a wait para esperar un poco entre actualizaciones
 end
