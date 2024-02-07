@@ -232,15 +232,15 @@ while _G.ruslan do
     end
 
     if randNumTorso <= 20 then
-        xdTorso = 5.9
+        xdTorso = 6.3
     elseif randNumTorso <= 50 then
-        xdTorso = 6.4
+        xdTorso = 6.7
     elseif randNumTorso <= 70 then
-        xdTorso = 6.6
+        xdTorso = 7
     elseif randNumTorso <= 88 then
-        xdTorso = 7.15
+        xdTorso = 7.3
     else
-        xdTorso = 7.4
+        xdTorso = 7.5
     end
 
     local HitboxExpanderHead = { HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead }
@@ -268,5 +268,5 @@ while _G.ruslan do
     game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
     game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
 
-    wait(1.5)
+    wait(5)
 end
