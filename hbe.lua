@@ -1,6 +1,9 @@
 local Camera = game:GetService("Workspace").CurrentCamera
 local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
 
+local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
+local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
+
 local Esp = {
     Settings = {
         ViewAngle = true,
@@ -145,5 +148,27 @@ local UserInputService = game:GetService("UserInputService")
 UserInputService.InputBegan:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.P then
         Esp.Active = not Esp.Active
+        if Esp.Active then
+            Notification:Notify(
+                {Title = "ESP Activated", Description = "ViewAngle is now visible."},
+                {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "default"}
+            )
+        else
+            Notification:Notify(
+                {Title = "ESP Deactivated", Description = "ViewAngle is now hidden."},
+                {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "default"}
+            )
+        end
+        for _, v in pairs(Esp.Drawings) do
+            if v.Visible then
+                v:Remove()
+            end
+        end
+        Esp.Drawings = {}
+        for _, v in pairs(Esp.Players) do
+            if v.ViewAngle.Visible then
+                v.ViewAngle.Visible = false
+            end
+        end
     end
 end)
