@@ -4,6 +4,29 @@ local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middl
 local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
 local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
 
+Notification:Notify(
+    {Title = "Hitbox Extender Added [✅]", Description = "Ruslan Baby (LOADED) 🔥"},
+    {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "default"}
+)
+
+local antihitbox, antihitbox2
+
+antihitbox = hookmetamethod(game, "__newindex", newcclosure(function(...)
+    local self, k = ...
+    if not checkcaller() and k == "Size" and self.Name == "Head" then
+        return Vector3.new(1.672248125076294, 0.835624098777771, 0.835624098777771)
+    end
+    return antihitbox(...)
+end))
+
+antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
+    local self, k = ...
+    if not checkcaller() and k == "Size" and self.Name == "Torso" then
+        return Vector3.new(0.6530659198760986, 2.220424175262451, 1.4367451667785645)
+    end
+    return antihitbox2(...)
+end))
+
 local Esp = {
     Settings = {
         ViewAngle = true,
@@ -13,8 +36,7 @@ local Esp = {
         RenderDistance = 700
     },
     Drawings = {},
-    Players = {},
-    Active = true
+    Players = {}
 }
 
 function Esp:Draw(Type, Properties)
@@ -49,7 +71,7 @@ function Esp:UpdateEsp()
         local Character = i
         local Position, OnScreen = Camera:WorldToViewportPoint(Character:GetPivot().Position)
         local Distance = (CharcaterMiddle:GetPivot().Position - Character:GetPivot().Position).Magnitude
-        if Esp.Active and OnScreen and Esp.Settings.ViewAngle and Distance <= Esp.Settings.RenderDistance then
+        if OnScreen and Esp.Settings.ViewAngle and Distance <= Esp.Settings.RenderDistance then
             local headpos = Camera:WorldToViewportPoint(Character.Head.Position)
             local offsetCFrame = CFrame.new(0, 0, -4)
             v.ViewAngle.From = Vector2.new(headpos.X, headpos.Y)
@@ -60,7 +82,6 @@ function Esp:UpdateEsp()
                 v.ViewAngle.To = Vector2.new(dirpos.X, dirpos.Y)
                 offsetCFrame = CFrame.new(0, 0, -4)
             end
-            v.ViewAngle.Visible = true
         else
             v.ViewAngle.Visible = false
         end
@@ -87,36 +108,9 @@ end)
 _G.ruslan = true
 
 while _G.ruslan do
-    local randNumHead = math.random(1, 100)
-    local randNumTorso = math.random(1, 100)
-    local xdHead, xdTorso
 
-    if randNumHead <= 50 then
-        xdHead = 5.35
-    elseif randNumHead <= 80 then
-        xdHead = 6
-    elseif randNumHead <= 90 then
-        xdHead = 6.6
-    elseif randNumHead <= 95 then
-        xdHead = 7.2
-    else
-        xdHead = 7.3
-    end
-
-    if randNumTorso <= 20 then
-        xdTorso = 6.3
-    elseif randNumTorso <= 50 then
-        xdTorso = 6.7
-    elseif randNumTorso <= 70 then
-        xdTorso = 7
-    elseif randNumTorso <= 88 then
-        xdTorso = 7.3
-    else
-        xdTorso = 7.5
-    end
-
-    local HitboxExpanderHead = { HitBX = xdHead, HitBY = xdHead, HitBZ = xdHead }
-    local HitboxExpanderTorso = { HitBX = xdTorso, HitBY = xdTorso, HitBZ = xdTorso }
+    local HitboxExpanderHead = { HitBX = 6.4, HitBY = 6.4, HitBZ = 6.4 }
+    local HitboxExpanderTorso = { HitBX = 7, HitBY = 7, HitBZ = 7 }
 
     for _, i in pairs(workspace:GetChildren()) do
         if i:FindFirstChild("HumanoidRootPart") then
@@ -142,33 +136,3 @@ while _G.ruslan do
 
     wait(15)
 end
-
-local UserInputService = game:GetService("UserInputService")
-
-UserInputService.InputBegan:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.P then
-        Esp.Active = not Esp.Active
-        if Esp.Active then
-            Notification:Notify(
-                {Title = "ESP Activated", Description = "ViewAngle is now visible."},
-                {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "default"}
-            )
-        else
-            Notification:Notify(
-                {Title = "ESP Deactivated", Description = "ViewAngle is now hidden."},
-                {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "default"}
-            )
-        end
-        for _, v in pairs(Esp.Drawings) do
-            if v.Visible then
-                v:Remove()
-            end
-        end
-        Esp.Drawings = {}
-        for _, v in pairs(Esp.Players) do
-            if v.ViewAngle.Visible then
-                v.ViewAngle.Visible = false
-            end
-        end
-    end
-end)
