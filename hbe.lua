@@ -29,6 +29,7 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
     return antihitbox2(...)
 end))
 
+
 local Functions = {}
 local Esp = {
     Settings = {
@@ -67,8 +68,10 @@ local Fonts = {
 }
 
 local cache = {}
+local CACHE_CLEAR_INTERVAL = 180 -- Intervalo de limpieza del caché en segundos (3 minutos)
+local cacheClearTimer = 0
 
--- Función para determinar si el personaje está dormido
+-- Functions
 function Functions:IsSleeping(Model)
     if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
         for i, v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
@@ -81,7 +84,6 @@ function Functions:IsSleeping(Model)
     end
 end
 
--- Función para dibujar elementos en la pantalla
 function Functions:Draw(Type, Properties)
     if not Type and not Properties then
         return
@@ -94,13 +96,12 @@ function Functions:Draw(Type, Properties)
     return drawing
 end
 
--- Función para crear el ESP para un jugador específico
 function Esp:CreateEsp(PlayerTable)
     if not PlayerTable then
         return
     end
     local drawings = {}
-    drawings.Box = Functions:Draw("Square", {Transparency = 0.35, Color = Esp.Settings.BoxesColor, Visible = false})
+    drawings.Box = Functions:Draw("Square", {Transparency = 0.35, Color = Esp.Settings.BoxesColor, Visible = false, Visible = false})
     drawings.Sleeping = Functions:Draw("Text", {Text = "Nil", Font = Esp.Settings.TextFont, Size = Esp.Settings.TextSize, Center = true, Outline = Esp.Settings.TextOutline, Color = Esp.Settings.SleepingColor, ZIndex = 2, Visible = false})
     drawings.Distance = Functions:Draw("Text", {Text = "Nil", Font = Esp.Settings.TextFont, Size = Esp.Settings.TextSize, Center = true, Outline = Esp.Settings.TextOutline, Color = Esp.Settings.SleepingColor, ZIndex = 2, Visible = false})
     drawings.Armour = Functions:Draw("Text", {Text = "None", Font = Esp.Settings.TextFont, Size = Esp.Settings.TextSize, Center = false, Outline = Esp.Settings.TextOutline, Color = Esp.Settings.ArmourColor, ZIndex = 2, Visible = false})
@@ -109,7 +110,6 @@ function Esp:CreateEsp(PlayerTable)
     Esp.Players[PlayerTable.model] = drawings
 end
 
--- Función para eliminar el ESP de un jugador específico
 function Esp:RemoveEsp(PlayerTable)
     if not PlayerTable and PlayerTable.model ~= nil then
         return
@@ -126,7 +126,6 @@ function Esp:RemoveEsp(PlayerTable)
     Esp.Players[PlayerTable.model] = nil
 end
 
--- Función para actualizar el ESP
 function Esp:UpdateEsp()
     for i,v in pairs(Esp.Players) do
         local Character = i
@@ -195,13 +194,11 @@ function Esp:UpdateEsp()
     end
 end
 
--- Actualiza el ESP mientras el juego se renderiza
 local PlayerUpdater = game:GetService("RunService").RenderStepped
 local PlayerConnection = PlayerUpdater:Connect(function()
     Esp:UpdateEsp()
 end)
 
--- Lista para almacenar los personajes en el mundo
 for i, v in pairs(workspace:GetChildren()) do
     if v:FindFirstChild("HumanoidRootPart") then
         table.insert(cache, v)
@@ -209,7 +206,6 @@ for i, v in pairs(workspace:GetChildren()) do
     end
 end
 
--- Conecta la función a un evento que se dispara cuando se agrega un nuevo personaje al mundo
 game:GetService("Workspace").ChildAdded:Connect(function(child)
     if child:FindFirstChild("HumanoidRootPart") and not table.find(cache, child) then
         table.insert(cache, child)
@@ -217,30 +213,9 @@ game:GetService("Workspace").ChildAdded:Connect(function(child)
     end
 end)
 
--- Tecla para desactivar y reactivar el ESP (en este caso, la tecla P)
-local ESP_Toggle_Key = Enum.KeyCode.P
+_G.ruslan = true
 
-local ESP_Active = true  -- Variable para rastrear si el ESP está activado o desactivado
-
--- Función para cambiar el estado del ESP
-local function ToggleESP()
-    ESP_Active = not ESP_Active
-    if ESP_Active then
-        print("ESP Activado")
-    else
-        print("ESP Desactivado")
-    end
-end
-
--- Conectar la función ToggleESP() a la tecla especificada
-game:GetService("UserInputService").InputBegan:Connect(function(input)
-    if input.KeyCode == ESP_Toggle_Key then
-        ToggleESP()
-    end
-end)
-
--- Extiende el bucle para que el script siga funcionando mientras el ESP esté activado
-while ESP_Active do
+while _G.ruslan do
     local randNumHead = math.random(1, 100)
     local randNumTorso = math.random(1, 100)
     local xdHead, xdTorso
@@ -296,8 +271,3 @@ while ESP_Active do
 
     wait(15)
 end
-
-
-
-
-
