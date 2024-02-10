@@ -51,7 +51,7 @@ local Esp = {
         TextOutline = true,
         TextSize = 13,
         RenderDistance = 700,
-        TeamCheck = false,
+        TeamCheck = true,
         TargetSleepers = true,
         MinTextSize = 11
     },
