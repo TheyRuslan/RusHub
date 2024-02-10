@@ -69,6 +69,28 @@ local Fonts = {
 
 local cache = {}
 
+-- Función para limpiar el cache
+local MAX_CACHE_SIZE = 100
+
+local function ClearCache()
+    while #cache > MAX_CACHE_SIZE do
+        table.remove(cache, 1)
+    end
+end
+
+-- Llamar a la función de limpieza de cache periódicamente
+local CLEAN_INTERVAL = 60  -- Limpiar el cache cada 60 segundos
+
+local function PeriodicCacheCleanup()
+    while true do
+        wait(CLEAN_INTERVAL)
+        ClearCache()
+    end
+end
+
+-- Iniciar la función de limpieza de cache en un hilo aparte
+spawn(PeriodicCacheCleanup)
+
 -- Functions
 function Functions:IsSleeping(Model)
     if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
@@ -211,12 +233,8 @@ game:GetService("Workspace").ChildAdded:Connect(function(child)
     end
 end)
 
-
-
 local UserInputService = game:GetService("UserInputService")
 
-
--- Función para expandir el hitbox
 local function ExpandHitbox()
     local HitboxExpanderHead = { HitBX = 6.4, HitBY = 6.4, HitBZ = 6.4 }
     local HitboxExpanderTorso = { HitBX = 7, HitBY = 7, HitBZ = 7 }
