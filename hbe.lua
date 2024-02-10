@@ -234,8 +234,18 @@ game:GetService("Workspace").ChildAdded:Connect(function(child)
 end)
 
 local UserInputService = game:GetService("UserInputService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Player = ReplicatedStorage:WaitForChild("Player") -- Ajusta la ubicación de Player según tu juego
+local lastExpandTime = 0
+local expandCooldown = 1 -- Tiempo de enfriamiento entre las expansiones del hitbox (en segundos)
 
 local function ExpandHitbox()
+    local currentTime = tick()
+    if currentTime - lastExpandTime < expandCooldown then
+        return
+    end
+    lastExpandTime = currentTime
+
     local HitboxExpanderHead = { HitBX = 6.4, HitBY = 6.4, HitBZ = 6.4 }
     local HitboxExpanderTorso = { HitBX = 7, HitBY = 7, HitBZ = 7 }
 
@@ -265,7 +275,7 @@ end
 
 local function OnInputBegan(input, gameProcessedEvent)
     if input.KeyCode == Enum.KeyCode.P then
-        ExpandHitbox() -- Llamar a la función para expandir el hitbox
+        ExpandHitbox()
         Notification:Notify(
         {Title = "Hitbox Extended [✅]", Description = "x1 🔥"},
         {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "default"}
@@ -274,4 +284,5 @@ local function OnInputBegan(input, gameProcessedEvent)
 end
 
 UserInputService.InputBegan:Connect(OnInputBegan)
+
 
