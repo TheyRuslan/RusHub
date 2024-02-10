@@ -248,5 +248,9 @@ end
 UserInputService.InputBegan:Connect(function(input, processed)
     if input.KeyCode == Enum.KeyCode.P then
         ExpandHitbox() -- Llamar a la función para expandir el hitbox
+        Notification:Notify(
+        {Title = "Hitbox Extended [✅]", Description = "x1 🔥"},
+        {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "default"}
+       )
     end
 end)
