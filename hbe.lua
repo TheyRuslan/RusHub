@@ -216,6 +216,35 @@ end)
 local UserInputService = game:GetService("UserInputService")
 
 -- Función para expandir el hitbox
+local function DefaultHitbox()
+    local HitboxExpanderHead = { HitBX = 1.672248125076294, HitBY = 0.835624098777771, HitBZ = 0.835624098777771 }
+    local HitboxExpanderTorso = { HitBX = 0.6530659198760986, HitBY = 2.220424175262451, HitBZ = 1.4367451667785645 }
+
+    for _, i in pairs(workspace:GetChildren()) do
+        if i:FindFirstChild("HumanoidRootPart") then
+            if i:FindFirstChild("Head") then
+                i.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
+                i.Head.CanCollide = false
+                i.Head.Color = Color3.fromRGB(144, 66, 245)
+                i.Head.Material = "ForceField"
+                i.Head.Transparency = 0
+            end
+            if i:FindFirstChild("Torso") then
+                i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
+                i.Torso.CanCollide = false
+                i.Torso.Color = Color3.fromRGB(66, 144, 245)
+                i.Torso.Material = "ForceField"
+                i.Torso.Transparency = 0
+            end
+        end
+    end
+
+    game.ReplicatedStorage.Player.Head.Size = Vector3.new(DefaultExpanderHead.HitBX, DefaultExpanderHead.HitBY, DefaultExpanderHead.HitBZ)
+    game.ReplicatedStorage.Player.Torso.Size = Vector3.new(DefaultExpanderTorso.HitBX, DefaultExpanderTorso.HitBY, DefaultExpanderTorso.HitBZ)
+end
+
+
+-- Función para expandir el hitbox
 local function ExpandHitbox()
     local HitboxExpanderHead = { HitBX = 6.4, HitBY = 6.4, HitBZ = 6.4 }
     local HitboxExpanderTorso = { HitBX = 7, HitBY = 7, HitBZ = 7 }
@@ -247,5 +276,11 @@ end
 UserInputService.InputBegan:Connect(function(input, processed)
     if input.KeyCode == Enum.KeyCode.P then
         ExpandHitbox() -- Llamar a la función para expandir el hitbox
+    end
+end)
+
+UserInputService.InputBegan:Connect(function(input, processed)
+    if input.KeyCode == Enum.KeyCode.K then
+        DefaultHitbox() -- Llamar a la función para default el hitbox
     end
 end)
