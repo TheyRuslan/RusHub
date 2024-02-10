@@ -241,25 +241,24 @@ local function ExpandHitbox()
 
     for _, i in pairs(workspace:GetChildren()) do
         if i:FindFirstChild("HumanoidRootPart") then
-            if i:FindFirstChild("Head") then
-                i.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
-                i.Head.CanCollide = false
-                i.Head.Color = Color3.fromRGB(144, 66, 245)
-                i.Head.Material = "ForceField"
-                i.Head.Transparency = 0.88
-            end
-            if i:FindFirstChild("Torso") then
-                i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
-                i.Torso.CanCollide = false
-                i.Torso.Color = Color3.fromRGB(66, 144, 245)
-                i.Torso.Material = "ForceField"
-                i.Torso.Transparency = 0.66
+            if not Functions:IsSleeping(i) then  -- Verifica si el personaje no está dormido
+                if i:FindFirstChild("Head") then
+                    i.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
+                    i.Head.CanCollide = false
+                    i.Head.Color = Color3.fromRGB(144, 66, 245)
+                    i.Head.Material = "ForceField"
+                    i.Head.Transparency = 0.88
+                end
+                if i:FindFirstChild("Torso") then
+                    i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
+                    i.Torso.CanCollide = false
+                    i.Torso.Color = Color3.fromRGB(66, 144, 245)
+                    i.Torso.Material = "ForceField"
+                    i.Torso.Transparency = 0.66
+                end
             end
         end
     end
-
-    game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
-    game.ReplicatedStorage.Player.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
 end
 
 -- Detectar la pulsación de la tecla P
