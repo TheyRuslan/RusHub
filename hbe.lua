@@ -86,34 +86,34 @@ function Functions:IsSleeping(Model)
     return false
 end
 
-function Esp:CreateEsp(Player)
+function Esp:CreateEsp(Model)
     local ViewAngle = Drawing.new("Line")
-    ViewAngle.Thickness = Esp.Settings.ViewAngleThickness
-    ViewAngle.Transparency = Esp.Settings.ViewAngleTransparency
+    ViewAngle.Thickness = self.Settings.ViewAngleThickness
+    ViewAngle.Transparency = self.Settings.ViewAngleTransparency
     ViewAngle.Visible = false
-    ViewAngle.Color = Esp.Settings.ViewAngleColor
-    self.Drawings[Player] = { ViewAngle = ViewAngle }
+    ViewAngle.Color = self.Settings.ViewAngleColor
+    self.Drawings[Model] = { ViewAngle = ViewAngle }
 end
 
-function Esp:RemoveEsp(Player)
-    local drawings = self.Drawings[Player]
+function Esp:RemoveEsp(Model)
+    local drawings = self.Drawings[Model]
     if not drawings then return end
     for _, drawing in pairs(drawings) do
         if type(drawing) == "table" then
             drawing:Remove()
         end
     end
-    self.Drawings[Player] = nil
+    self.Drawings[Model] = nil
 end
 
 function Esp:UpdateEsp()
-    for Player, drawings in pairs(self.Drawings) do
-        local Character = Player.Character
+    for Model, drawings in pairs(self.Drawings) do
+        local Character = Model:FindFirstChildOfClass("Model")
         if Character and Character:FindFirstChild("HumanoidRootPart") and Character:FindFirstChild("Head") then
             local Position, OnScreen = Camera:WorldToViewportPoint(Character.Head.Position)
             local Distance = (CharcaterMiddle:GetPivot().Position - Character:GetPivot().Position).Magnitude
             local sleeping = Functions:IsSleeping(Character)
-            if OnScreen and Esp.Settings.ViewAngle and Distance <= Esp.Settings.RenderDistance then
+            if OnScreen and self.Settings.ViewAngle and Distance <= self.Settings.RenderDistance then
                 drawings.ViewAngle.Visible = true
                 local headPos = Camera:WorldToViewportPoint(Character.Head.Position)
                 local dir = Character.Head.CFrame:ToWorldSpace(CFrame.new(0, 0, -4))
@@ -124,7 +124,7 @@ function Esp:UpdateEsp()
                 drawings.ViewAngle.Visible = false
             end
         else
-            self:RemoveEsp(Player)
+            self:RemoveEsp(Model)
         end
     end
 end
@@ -146,6 +146,7 @@ for _, child in ipairs(game:GetService("Workspace"):GetChildren()) do
         Esp:CreateEsp(child)
     end
 end
+
 
 
 local UserInputService = game:GetService("UserInputService")
