@@ -37,26 +37,21 @@ local function ExpandHitbox()
 
     for _, i in pairs(workspace:GetChildren()) do
         if i:FindFirstChild("HumanoidRootPart") then
-                if i:FindFirstChild("Head") then
-                    if i.Head.Size ~= Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ) then
-                        i.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
-                        i.Head.CanCollide = false
-                        i.Head.Color = Color3.fromRGB(144, 66, 245)
-                        i.Head.Material = "ForceField"
-                    end
-                    if i.Head.Transparency ~= 0.88 then
-                        i.Head.Transparency = 0.88
-                    end
-                if i:FindFirstChild("Torso") then
-                    if i.Torso.Size ~= Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ) then
-                        i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
-                        i.Torso.CanCollide = false
-                        i.Torso.Color = Color3.fromRGB(66, 144, 245)
-                        i.Torso.Material = "ForceField"
-                    end
-                    if i.Torso.Transparency ~= 0.66 then
-                        i.Torso.Transparency = 0.66
-                    end
+            if i:FindFirstChild("Head") then
+                if i.Head.Size ~= Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ) then
+                    i.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
+                    i.Head.CanCollide = false
+                    i.Head.Color = Color3.fromRGB(144, 66, 245)
+                    i.Head.Material = "ForceField"
+                end
+            end
+            if i:FindFirstChild("Torso") then
+                if i.Torso.Size ~= Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ) then
+                    i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
+                    i.Torso.CanCollide = false
+                    i.Torso.Color = Color3.fromRGB(66, 144, 245)
+                    i.Torso.Material = "ForceField"
+                    i.Torso.Transparency = 0.66
                 end
             end
         end
