@@ -29,6 +29,8 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
     return antihitbox2(...)
 end))
 
+local sleeping = Functions:IsSleeping(Character)
+
 function Functions:IsSleeping(Model)
     if Model and Model:FindFirstChild("AnimationController") then
         for _, v in pairs(Model.AnimationController:GetDescendants()) do
