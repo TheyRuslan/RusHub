@@ -37,7 +37,6 @@ local function ExpandHitbox()
 
     for _, i in pairs(workspace:GetChildren()) do
         if i:FindFirstChild("HumanoidRootPart") then
-            if not Functions:IsSleeping(i) then  -- Verifica si el personaje no está dormido
                 if i:FindFirstChild("Head") then
                     if i.Head.Size ~= Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ) then
                         i.Head.Size = Vector3.new(HitboxExpanderHead.HitBX, HitboxExpanderHead.HitBY, HitboxExpanderHead.HitBZ)
@@ -48,7 +47,6 @@ local function ExpandHitbox()
                     if i.Head.Transparency ~= 0.88 then
                         i.Head.Transparency = 0.88
                     end
-                end
                 if i:FindFirstChild("Torso") then
                     if i.Torso.Size ~= Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ) then
                         i.Torso.Size = Vector3.new(HitboxExpanderTorso.HitBX, HitboxExpanderTorso.HitBY, HitboxExpanderTorso.HitBZ)
