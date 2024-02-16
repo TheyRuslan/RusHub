@@ -29,6 +29,18 @@ antihitbox2 = hookmetamethod(game, "__index", newcclosure(function(...)
     return antihitbox2(...)
 end))
 
+function Functions:IsSleeping(Model)
+    if Model and Model:FindFirstChild("AnimationController") then
+        for _, v in pairs(Model.AnimationController:GetDescendants()) do
+            if v:IsA("AnimationTrack") and v.Animation.AnimationId == "rbxassetid://13280887764" then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+
 local UserInputService = game:GetService("UserInputService")
 
 local function ExpandHitbox()
