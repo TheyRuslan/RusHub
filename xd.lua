@@ -43,6 +43,7 @@ local function ExpandHitbox()
                     i.Head.CanCollide = false
                     i.Head.Color = Color3.fromRGB(144, 66, 245)
                     i.Head.Material = "ForceField"
+                    i.Head.Transparency = 0.88
                 end
             end
             if i:FindFirstChild("Torso") then
@@ -60,7 +61,7 @@ end
 
 -- Detectar la pulsación de la tecla P
 UserInputService.InputBegan:Connect(function(input, processed)
-    if input.KeyCode == Enum.KeyCode.P then
+    if input.KeyCode == Enum.KeyCode.K then
         ExpandHitbox() -- Llamar a la función para expandir el hitbox
         Notification:Notify(
         {Title = "Hitbox Extended [✅]", Description = "x1 🔥"},
